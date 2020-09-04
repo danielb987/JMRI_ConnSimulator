@@ -20,12 +20,15 @@ public class CbusSimulator {
     }
     
     public void setVoltage(int voltage) {
-        clientConnection.out.format(":SBFE0ND0FFFE0002%04X;%n", voltage);
-//        clientConnection.out.format(":SBFE0ND0FFFE00010020;%n");
+        if (clientConnection != null) {
+            clientConnection.out.format(":SBFE0ND0FFFE0002%04X;%n", voltage);
+        }
     }
     
     public void setCurrent(int current) {
-        clientConnection.out.format(":SBFE0ND0FFFE0001%04X;%n", current);
+        if (clientConnection != null) {
+            clientConnection.out.format(":SBFE0ND0FFFE0001%04X;%n", current);
+        }
     }
     
     

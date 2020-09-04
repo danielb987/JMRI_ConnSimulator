@@ -14,33 +14,33 @@ import java.net.Socket;
  */
 public class LocoNetSimulator {
     
-    private final TcpServer tcpServer;
     private ClientConnection clientConnection;
     
     public LocoNetSimulator() throws IOException {
-        this.tcpServer = new TcpServer(1234, ClientConnection::new);
+        new TcpServer(1234, ClientConnection::new);
     }
     
     public void setVoltage(double voltage) {
-        clientConnection.voltage = voltage;
+        if (clientConnection != null) {
+            clientConnection.voltage = voltage;
+        }
     }
     
     public void setCurrent(double current) {
-        clientConnection.current = current;
+        if (clientConnection != null) {
+            clientConnection.current = current;
+        }
     }
     
     
     private class ClientConnection implements Runnable {
         
-        private final Socket clientSocket;
         private final BufferedReader in;
         private final PrintStream out;
         private double voltage = 0.0;
         private double current = 0.0;
         
         private ClientConnection(Socket socket) throws IOException {
-            this.clientSocket = socket;
-            
             System.out.println("LocoNet: Creating input  stream reader for " + socket.getRemoteSocketAddress() );
             in = new BufferedReader(new InputStreamReader(socket.getInputStream(),"UTF8"));
             System.out.println("LocoNet: Creating output stream writer for " + socket.getRemoteSocketAddress() );
@@ -54,6 +54,7 @@ public class LocoNetSimulator {
             thread.start();
         }
         
+        @Override
         public void run() {
             String line;
             
@@ -68,9 +69,8 @@ public class LocoNetSimulator {
                             int[] data = {
                                 0xE6,   // Byte 0   // OPC_EXP_RD_SL_DATA
                                 0x15,   // Byte 1   // Num bytes = 21 bytes
-                                0x00,   // Byte 2   // Slot number = 249
-//                                0xF9,   // Byte 2   // Slot number = 249
-                                0x00,   // Byte 3
+                                0x01,   // Byte 2   // Slot number = 249
+                                0x79,   // Byte 3   // Slot number = 249
                                 (int)Math.round(voltage),   // Byte 4   voltage
                                 0x00,   // Byte 5
                                 (int)Math.round(current),   // Byte 4   voltage

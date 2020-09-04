@@ -335,14 +335,14 @@ public class MainWindow extends javax.swing.JFrame {
     private void locoNetVoltageSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_locoNetVoltageSliderStateChanged
         System.out.format("LocoNet voltage changed: %d%n", locoNetVoltageSlider.getValue());
         int value = locoNetVoltageSlider.getValue();
-        locoNetVoltageTextField.setText(String.format("%1.0f", value));
+        locoNetVoltageTextField.setText(String.format("%1.0f", value/5.0));
         lnSim.setVoltage(value);
     }//GEN-LAST:event_locoNetVoltageSliderStateChanged
 
     private void locoNetCurrentSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_locoNetCurrentSliderStateChanged
         System.out.format("LocoNet current changed: %d%n", locoNetCurrentSlider.getValue());
         int value = locoNetCurrentSlider.getValue();
-        locoNetCurrentTextField.setText(String.format("%1.1f", value/5.0));
+        locoNetCurrentTextField.setText(String.format("%1.1f", value/10.0));
         lnSim.setCurrent(value);
     }//GEN-LAST:event_locoNetCurrentSliderStateChanged
 
@@ -364,7 +364,7 @@ public class MainWindow extends javax.swing.JFrame {
     private void cbusVoltageSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_cbusVoltageSliderStateChanged
         System.out.format("Cbus voltage changed: %d%n", cbusVoltageSlider.getValue());
         int value = cbusVoltageSlider.getValue();
-        cbusVoltageTextField.setText(String.format("%d", value));
+        cbusVoltageTextField.setText(String.format("%1.0f", value/10.0));
         cbusSim.setVoltage(value);
     }//GEN-LAST:event_cbusVoltageSliderStateChanged
 
