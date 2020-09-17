@@ -211,6 +211,8 @@
         </Component>
         <Component class="javax.swing.JSlider" name="z21VoltageSlider">
           <Properties>
+            <Property name="majorTickSpacing" type="int" value="100"/>
+            <Property name="maximum" type="int" value="30000"/>
             <Property name="value" type="int" value="0"/>
           </Properties>
           <Events>
@@ -224,6 +226,8 @@
         </Component>
         <Component class="javax.swing.JSlider" name="z21CurrentSlider">
           <Properties>
+            <Property name="majorTickSpacing" type="int" value="100"/>
+            <Property name="maximum" type="int" value="5000"/>
             <Property name="value" type="int" value="0"/>
           </Properties>
           <Events>

@@ -9,6 +9,7 @@ import java.io.IOException;
 import simulators.loconet.LocoNetSimulator;
 import simulators.dccpp.DCCppSimulator;
 import simulators.cbus.CbusSimulator;
+import simulators.z21.Z21Simulator;
 
 /**
  *
@@ -17,6 +18,7 @@ import simulators.cbus.CbusSimulator;
 public class MainWindow extends javax.swing.JFrame {
 
     private LocoNetSimulator lnSim;
+    private Z21Simulator z21Sim;
     private DCCppSimulator dccppSim;
     private CbusSimulator cbusSim;
     
@@ -27,6 +29,7 @@ public class MainWindow extends javax.swing.JFrame {
         initComponents();
         try {
             lnSim = new LocoNetSimulator();
+            z21Sim = new Z21Simulator();
             dccppSim = new DCCppSimulator();
             cbusSim = new CbusSimulator();
         } catch (IOException ex) {
@@ -142,6 +145,8 @@ public class MainWindow extends javax.swing.JFrame {
 
         jLabel3.setText("Voltage");
 
+        z21VoltageSlider.setMajorTickSpacing(100);
+        z21VoltageSlider.setMaximum(30000);
         z21VoltageSlider.setValue(0);
         z21VoltageSlider.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -151,6 +156,8 @@ public class MainWindow extends javax.swing.JFrame {
 
         jLabel4.setText("Current");
 
+        z21CurrentSlider.setMajorTickSpacing(100);
+        z21CurrentSlider.setMaximum(5000);
         z21CurrentSlider.setValue(0);
         z21CurrentSlider.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -347,11 +354,17 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_locoNetCurrentSliderStateChanged
 
     private void z21VoltageSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_z21VoltageSliderStateChanged
-        // TODO add your handling code here:
+        System.out.format("Z21 voltage changed: %d%n", z21VoltageSlider.getValue());
+        int value = z21VoltageSlider.getValue();
+        z21VoltageTextField.setText(String.format("%d", value));
+        z21Sim.setVoltage(value);
     }//GEN-LAST:event_z21VoltageSliderStateChanged
 
     private void z21CurrentSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_z21CurrentSliderStateChanged
-        // TODO add your handling code here:
+        System.out.format("Z21 current changed: %d%n", z21CurrentSlider.getValue());
+        int value = z21CurrentSlider.getValue();
+        z21CurrentTextField.setText(String.format("%1d", value));
+        z21Sim.setCurrent(value);
     }//GEN-LAST:event_z21CurrentSliderStateChanged
 
     private void dccppCurrentSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_dccppCurrentSliderStateChanged

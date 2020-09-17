@@ -26,7 +26,9 @@ public class DCCppSimulator {
     }
     
     public void setCurrent(int current) {
-        clientConnection.current = current;
+        if (clientConnection != null) {
+            clientConnection.current = current;
+        }
     }
     
     
