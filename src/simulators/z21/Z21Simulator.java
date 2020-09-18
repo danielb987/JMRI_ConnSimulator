@@ -1,15 +1,9 @@
 package simulators.z21;
 
-import simulators.loconet.*;
-import com.TcpServer;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.net.Socket;
 
 /**
  * LocoNet simulator
@@ -20,9 +14,7 @@ public class Z21Simulator {
     
     private final Z21_Server z21Server;
     private InetAddress addr;
-//    private final InetAddress addr = InetAddress.getByName("localhost");
     private int udpPort;
-//    private final int udpPort = 21105;
     private int voltage = 0;
     private int current = 0;
     
